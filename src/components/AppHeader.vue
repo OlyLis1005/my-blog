@@ -27,25 +27,28 @@
 </script>
 
 <style lang="scss" scoped>
-.navbar-main {
-  display: flex;
-}
-
-.navbar-logo {
-  color: #555;
-  padding: 0 20px;
-  font-size: 20px;
-  height: 60px;
-  line-height: 60px;
-  border: {
-    bottom: 1px solid #e6e6e6;
+  .navbar-main {
+    display: flex;
   }
-}
 
-.navbar-main {
-  .el-menu-demo {
-    flex-grow: 1;
+  .navbar-logo {
+    color: #555;
+    padding: 0 20px;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    border: {
+      bottom: 1px solid #e6e6e6;
+    }
   }
-}
+
+  .navbar-main {
+    .el-menu-demo {
+      flex-grow: 1;
+    }
+  }
+  .el-menu {
+    background-color: transparent;
+  }
 
 </style>
