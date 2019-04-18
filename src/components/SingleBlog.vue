@@ -21,6 +21,7 @@
       this.$axios.get('https://vuedemo-4728d.firebaseio.com/posts/' + this.id + '.json').then(res => {
         console.log(res);
         this.blog = res.data;
+        this.blog.id = this.id;
       })
     },
     methods: {

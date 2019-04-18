@@ -95,16 +95,27 @@
     },
     methods: {
       post: function () {
-        this.$axios.post('https://vuedemo-4728d.firebaseio.com/posts.json', this.blog)
-          .then(response => {
-            let loadingInstance = Loading.service({ fullscreen: true });
-            setTimeout(() => {
-              this.hasSubmit = true;
-              loadingInstance.close();
-              this.$store.commit('resetArticle');
-            }, 500);
-        });
-        console.log('do sth');
+        console.log(this.blog);
+        let loadingInstance = Loading.service({ fullscreen: true });
+        if(this.blog.id) {
+          this.$axios.put('https://vuedemo-4728d.firebaseio.com/posts/' + this.blog.id + '.json', this.blog)
+            .then(response => {
+              setTimeout(() => {
+                this.hasSubmit = true;
+                loadingInstance.close();
+                this.$store.commit('resetArticle');
+              }, 500);
+            });
+        }else {
+          this.$axios.post('https://vuedemo-4728d.firebaseio.com/posts.json', this.blog)
+            .then(response => {
+              setTimeout(() => {
+                this.hasSubmit = true;
+                loadingInstance.close();
+                this.$store.commit('resetArticle');
+              }, 500);
+            });
+        }
       },
       continuePost: function () {
         this.hasSubmit = false
