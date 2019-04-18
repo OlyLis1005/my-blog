@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <h1>欢迎访问我的博客</h1>
+    <p>项目源码：<a href="https://github.com/OlyLis1005/my-blog" target="_blank">https://github.com/OlyLis1005/my-blog</a></p>
     <h1>Vue中使用echarts</h1><br>
     <echarts-test />
     <echarts-test :option="pieDate" />

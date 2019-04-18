@@ -42,29 +42,28 @@
         <el-form-item>
           <el-button class="submit-blog" type="primary"
                      icon="el-icon-circle-plus-outline"
-                     v-on:click.prevent="post">发布博客</el-button>
+                     v-on:click="post">发布博客</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
   <div v-else>
     <h1>发布成功</h1>
+    <el-button type="primary" @click="continuePost">继续写博客</el-button>
   </div>
 </template>
 
 <script>
   import { Loading } from 'element-ui';
+  import { mapState } from 'vuex'
 
   export default {
     name: "add-blog",
+    props: {
+      editArticle: Object
+    },
     data() {
       return {
-        blog: {
-          title: '',
-          content: '',
-          type: '',
-          category: ''
-        },
         options_1: [{
           value: '原创',
           label: '原创'
@@ -95,25 +94,39 @@
       }
     },
     methods: {
-      post: function() {
-        this.$axios.post('http://jsonplaceholder.typicode.com/posts', {
-          title: this.blog.title,
-          body: this.blog.content,
-          userId: 1
-        }).then(response => {
-          console.log(response);
-          let loadingInstance = Loading.service({ fullscreen: true })
-          setTimeout(() => {
-            this.hasSubmit = true;
-            loadingInstance.close();
-          }, 2000);
-        })
+      post: function () {
+        this.$axios.post('https://vuedemo-4728d.firebaseio.com/posts.json', this.blog)
+          .then(response => {
+            let loadingInstance = Loading.service({ fullscreen: true });
+            setTimeout(() => {
+              this.hasSubmit = true;
+              loadingInstance.close();
+              this.$store.commit('resetArticle');
+            }, 500);
+        });
+        console.log('do sth');
+      },
+      continuePost: function () {
+        this.hasSubmit = false
+      }
+    },
+    computed: {
+      blog() {
+        return this.$store.state.currentArticle
       }
     }
+    // computed: mapState({
+    //   blog: state => state.currentArticle
+    //   // 下面两种写法也可以
+    //   // blog: 'currentArticle'
+    //   // blog() {
+    //   //   return this.$store.state.currentArticle
+    //   // }
+    // })
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .add-blog-header {
     text-align: left;
     padding: 20px;
@@ -125,12 +138,15 @@
   }
   .blog-type-category {
     text-align: left;
+    & label {
+      margin-right: 20px;
+    }
   }
   .blog-type-select {
     margin-left: 10px;
   }
   .blog-type-select-2 {
-    margin-left: 20px;
+
   }
   .submit-blog {
     width: 100%;

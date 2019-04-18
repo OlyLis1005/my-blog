@@ -4,10 +4,10 @@
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" border-bottom>
         <el-submenu index="1">
           <template slot="title">博客</template>
-          <el-menu-item index="1-1"><router-link tag="span" to="/home">主页</router-link></el-menu-item>
-          <el-menu-item index="1-2"><router-link tag="span" to="/bloglist">文章列表</router-link></el-menu-item>
+          <el-menu-item index="home"><router-link tag="span" to="/home">主页</router-link></el-menu-item>
+          <el-menu-item index="blog-list"><router-link tag="span" to="/bloglist">文章列表</router-link></el-menu-item>
         </el-submenu>
-        <el-menu-item index="2"><router-link tag="span" to="/addblog">写博客</router-link></el-menu-item>
+        <el-menu-item index="add-blog"><router-link tag="span" to="/addblog">写博客</router-link></el-menu-item>
       </el-menu>
     </nav>
 </template>
@@ -17,8 +17,11 @@
     name: "app-header",
     data() {
       return {
-        activeIndex: '1-1'
+        activeIndex: this.$route.name
       }
+    },
+    created() {
+      console.log(this.activeIndex);
     }
   }
 </script>

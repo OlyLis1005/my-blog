@@ -24,11 +24,21 @@ export default {
   name: 'App',
   components: {
     'app-header': AppHeader
+  },
+  mounted: function () {
+    let isFirstCome = localStorage.getItem('first_come');
+    // console.log(isFirstCome, typeof isFirstCome);
+    if(isFirstCome && isFirstCome !== 'false') {
+      setTimeout(() => {
+        alert('欢迎新人');
+      }, 0);
+      localStorage.setItem('first_come', 'false');
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -40,23 +50,23 @@ export default {
     background-size: 100% calc(100% - 100vh + 5px);
     background-repeat: no-repeat;
     z-index: 1;
+    &::after {
+      content: "";
+      position: fixed;
+      top: 5px;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: #fff;
+      z-index: -1;
+    }
   }
-  * {
-    margin: 0;
-    padding: 0;
-  }
+  /** {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+  /*}*/
   html, body {
     width: 100%;
     height: 100%;
-  }
-  #app::after {
-    content: "";
-    position: fixed;
-    top: 5px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: #fff;
-    z-index: -1;
   }
 </style>
